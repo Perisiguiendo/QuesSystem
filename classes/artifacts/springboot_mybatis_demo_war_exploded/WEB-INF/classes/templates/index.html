@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<link>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调查问卷系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/asserts/css/index.css">
+    <link rel="stylesheet" href="static/asserts/css/reset.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row top">
+            <div class="col-xs-12 col-sm-12 col-md-12"></div>
+        </div>
+        <div class="row middle">
+            <div class="col-xs-1 col-sm-2 col-md-3 left-div"></div>
+            <div class="col-xs-10 col-sm-8 col-md-6 middle-div">
+                <div class="login-box-bg">
+                    <form class="login-box" method="post" action="/app">
+                        <span>登录</span>
+                        <div class="divusername"><span class="iconfont">&#xe7c3;</span><input id="username" type="text" placeholder="用户名" name="username"
+                                required></div>
+                        <div class="divpassword"><span class="iconfont">&#xe75b;</span><input id="password" type="password" name="password"
+                                placeholder="请输入登录密码" required></div>
+                        <p class="error" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+                        <input class="login" type="submit" value="登录">
+                    </form>
+                </div>
+            </div>
+            <div class="col-xs-1 col-sm-2 col-md-3 right-div"></div>
+        </div>
+        <div class="row bottom">
+            <div class="col-xs-12 col-sm-12 col-md-12 "></div>
+        </div>
+        <div class="copyright">
+            <span>Copyright © 辽宁省教育厅</span>
+        </div>
+    </div>
+
+    <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+
+        var $ophoneDiv = $("login-box-bg");
+
+        window.onresize = function () {
+            changeDivClassName();
+            console.log($ophoneDiv.selector);
+        }
+
+        function changeDivClassName() {
+            if (window.innerWidth <= 600) {
+                $ophoneDiv.selector = 'login-box-bg-phone';
+            } else {
+                $ophoneDiv.selector = 'login-box-bg';
+            }
+        }
+    </script>
+</body>
+
+</html>

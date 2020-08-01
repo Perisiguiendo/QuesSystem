@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winter.mapper.ProblemMapper">
+    <resultMap id="BaseResultMap" type="com.winter.model.Problem_info">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="kind_id" property="kind_id" jdbcType="INTEGER"/>
+        <result column="questionnaire_id" property="questionnaire_id" jdbcType="INTEGER"/>
+        <result column="problem_name" property="problem_name" jdbcType="VARCHAR"/>
+        <result column="creation_date" property="creation_date" jdbcType="TIMESTAMP"/>
+        <result column="last_update_date" property="last_update_date" jdbcType="TIMESTAMP"/>
+        <result column="pos" property="pos" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, kind_id, questionnaire_id, problem_name, creation_date, last_update_date, pos
+    </sql>
+    <insert id="insert" parameterType="com.winter.model.Problem_info">
+        insert into problem_info (id,kind_id,questionnaire_id,problem_name,creation_date,last_update_date,pos)
+        values (#{id}, #{kind_id}, #{questionnaire_id}, #{problem_name}, #{creation_date}, #{last_update_date}, #{pos})
+    </insert>
+    <select id="findProblem" parameterType="INTEGER" resultType="Problem_info">
+		select * from problem_info where questionnaire_id=#{questionnaire_id} and pos=#{pos}
+	</select>
+    <select id="findProblemById" parameterType="INTEGER" resultType="Problem_info">
+		select * from problem_info where questionnaire_id=#{questionnaire_id} and id=#{id}
+	</select>
+    <select id="findAllProblem" resultType="Problem_info">
+		select * from problem_info
+	</select>
+    <update id="modify" parameterType="com.winter.model.Problem_info">
+        update problem_info SET problem_name=#{problem_name} where id=#{id}
+    </update>
+    <update id="update" parameterType="com.winter.model.Problem_info">
+        update problem_info SET pos=#{pos} where id=#{id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        delete from problem_info where id=#{id}
+    </delete>
+</mapper>

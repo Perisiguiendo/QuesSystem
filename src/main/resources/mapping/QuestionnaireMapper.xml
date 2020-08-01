@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winter.mapper.QuestionnaireMapper">
+    <resultMap id="BaseResultMap" type="com.winter.model.Questionnaire_info">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="questionnaire_type" property="questionnaire_type" jdbcType="INTEGER"/>
+        <result column="proj_name" property="proj_name" jdbcType="VARCHAR"/>
+        <result column="questionnaire_name" property="questionnaire_name" jdbcType="VARCHAR"/>
+        <result column="questionnaire_content" property="questionnaire_content" jdbcType="VARCHAR"/>
+        <result column="creation_date" property="creation_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, questionnaire_type, proj_name, questionnaire_name, questionnaire_content, creation_date, last_update_date
+    </sql>
+    <insert id="insert" parameterType="com.winter.model.Questionnaire_info">
+    insert into Questionnaire_info (id,questionnaire_type,proj_name,questionnaire_name,questionnaire_content,creation_date,last_update_date)
+    values (#{id,jdbcType=INTEGER}, #{questionnaire_type,jdbcType=INTEGER}, #{proj_name,jdbcType=VARCHAR}, #{questionnaire_name,jdbcType=VARCHAR}, #{questionnaire_content,jdbcType=VARCHAR}, #{creation_date,jdbcType=TIMESTAMP}, #{last_update_date,jdbcType=TIMESTAMP})
+    </insert>
+    <select id="findAllProject" resultType="Questionnaire_info">
+		select * from questionnaire_info
+	</select>
+    <delete id="delete" parameterType="Integer">
+        delete from questionnaire_info where id=#{id}
+    </delete>
+    <update id="modify" parameterType="com.winter.model.Questionnaire_info">
+        update questionnaire_info SET questionnaire_name=#{questionnaire_name}, questionnaire_content=#{questionnaire_content} where id=#{id}
+    </update>
+</mapper>

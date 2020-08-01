@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调查问卷系统</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/asserts/css/reset.css">
+    <link rel="stylesheet" href="../static/asserts/css/app.css">
+    <script src="../static/asserts/script/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="returnTop iconfont">&#xe616;</div>
+    <div class="returnDown iconfont">&#xe613;</div>
+    <div class="container-fluid">
+        <!-- 弹窗 -->
+        <div class="pop-up-window-box">
+            <div class="pop-up-window">
+                <h2>信息填写</h2>
+                <span>问卷标题</span>
+                <input type="text" class="modify-title">
+                <span>问卷说明</span>
+                <textarea name="" id="" cols="20" rows="5" class="modify-des"></textarea>
+                <div>
+                    <a href="javascript:void(0)" class="que-cancel">取消</a>
+                    <a href="javascript:void(0)" class="que-confirm">确定</a>
+                </div>
+            </div>
+        </div>
+        <!-- 顶部导航栏 -->
+        <div class="row nav-box">
+            <div class="col-xs-1 col-sm-6 col-md-8"></div>
+            <div class="col-xs-11 col-sm-6 col-md-4 items-box">
+                <div class="items">
+                    <a href="#">
+                        <span class="iconfont">&#xe6f3;</span>
+                        我的项目&nbsp;&nbsp;&nbsp;|
+                    </a>
+                    <a href="#">
+                        <span class="iconfont">&#xe957;</span>
+                        pp
+                        <span class="triangle"></span>
+                    </a>
+                    <a href="#">
+                        <span class="iconfont">&#xe650;</span>
+                        退出
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content-box">
+            <!-- 创建项目 -->
+            <div class="row new-search">
+                <div class="col-xs-12 col-sm-9 col-md-8 new-pro">
+                    <span class="iconfont create-pro">&#xe6d4; 创建项目</span>
+                    <span class="search-box">
+                        <input type="text" placeholder="请输入项目名称进行搜索...">
+                        <span class="iconfont">&#xe643;</span>
+                    </span>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-4 history-pro">
+                    <span class="iconfont">&#xe614; 历史问卷</span>
+                </div>
+            </div>
+        </div>
+        <div class="bottom"></div>
+    </div>
+
+</body>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(".pop-up-window").css("top", $(document).scrollTop()+20 );//将滚动条高度赋给悬浮框。
+    var cums = [[${cums}]];
+    var cums_type = [[${cums_type}]];
+    console.log(cums);
+    console.log(cums_type);
+    //恢复项目
+    for (let i = 0; i < cums_type.length; i++) {
+        $('.content-box').append('<div class="row test-project-box " id="pj'+ cums_type[i].num +'">' +
+            '<div class="row test-top">' +
+            '<div class="col-xs-12 col-sm-4 col-md-3 que-ti">' + cums_type[i].questionnaire_type + '</div>' +
+            '<div class="col-xs-12 col-sm-8 col-md-9 ">' +
+            '<div>' +
+            '<a href="javascript:void(0)" class="createQu">创建问卷</a>' +
+            // '<a href="#" class="check-pro">查看</a>' +
+            // '<a href="javascript:void(0)" class="edit-pro">编辑</a>' +
+            '<a href="javascript:void(0)" class="del-pro">删除项目</a>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        );
+    }
+    //恢复问卷
+    for(let f=0;f<cums_type.length;f++){
+        for(let j=0;j<cums.length;j++){
+            if(cums_type[f].num == cums[j].questionnaire_type){
+                console.log('#pj' + cums_type[f].num);
+                $('#pj'+ cums_type[f].num).append('<div class="row test-content" id="' + cums[j].id + '">' +
+                    '<div class="row test-info">' +
+                    '<div class="col-xs-12 col-sm-4 col-md-3 ">' + cums[j].questionnaire_name + '</div>' +
+                    '<div class="col-xs-12 col-sm-8 col-md-9 ">' +
+                    '<div>' +
+                    '<span class="iconfont">&#xe63f;</span>' +
+                    // '<span>答卷'+ cums[j].id +'</span>' +
+                    '<span>' + cums[j].creation_date.substring(0,10) + " " + cums[j].creation_date.substring(11,19) + '</span>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="row test-op">' +
+                    '<div class="col-xs-12 col-sm-6 col-md-8">' +
+                    // '<a href="#" class="iconfont">&#xe6f5; 设计问卷</a>' +
+                    '<a href="javascript:void(0)" class="iconfont send_que">&#xe734; 发送问卷</a>' +
+                    '<a href="javascript:void(0)" class="iconfont">&#xe638; 分析&下载<span class="triangle-op"></span></a>' +
+                    '</div>' +
+                    '<div class="col-xs-12 col-sm-6 col-md-4 ">' +
+                    '<div>' +
+                    // '<a href="#" class="iconfont">&#xe69c; 开启</a>' +
+                    '<a href="javascript:void(0)" class="iconfont preview-que">&#xe600;预览</a>' +
+                    // '<a href="javascript:void(0)" class="iconfont">&#xe63e; 查看</a>' +
+                    '<a href="javascript:void(0)" class="iconfont edit-que">&#xe61c;编辑</a>' +
+                    // '<a href="javascript:void(0)" class="iconfont">&#xe609; 复制</a>' +
+                    '<a href="javascript:void(0)" class="iconfont del-que">&#xe614;删除</a>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'
+                );
+            }
+        }
+
+    }
+//----------------------------------------------------------------------------------------------------------------------
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+
+    var proj = '<div class="project-name">'+
+        '<input class="project-name-id" type="text" placeholder="请输入项目名称">' +
+        '<input type="button" class="make-sure" value="确认">'+
+        '</div>';
+
+    //输入项目框
+    $('.create-pro').click(function () {
+
+        $('.history-pro').after(proj);
+    });
+
+    var queName;
+    //创建项目
+    $('.make-sure').live('click', function () {
+        queName = $('.project-name-id').val();
+        if ($('.project-name-id').val()) {
+            var time1 = new Date().Format("yyyy-MM-dd HH:mm:ss");
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.open("POST","http://localhost:8080/project/os?num="+ (cums_type[cums_type.length-1].num+1) +"&projectname="+$('.project-name-id').val()+"&creation_date="+time1,true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send();
+            console.log("cums_type.length:" + (cums_type[cums_type.length-1].num+1));
+            $('.content-box').append('<div class="row test-project-box" id="pj'+ (cums_type[cums_type.length-1].num+1) +'">' +
+                '<div class="row test-top">' +
+                '<div class="col-xs-12 col-sm-4 col-md-3 que-ti">' + $('.project-name-id').val() + '</div>' +
+                '<div class="col-xs-12 col-sm-8 col-md-9 ">' +
+                '<div>' +
+                '<a href="javascript:void(0)" class="createQu">创建问卷</a>' +
+                // '<a href="#" class="check-pro">查看</a>' +
+                // '<a href="javascript:void(0)" class="edit-pro">编辑</a>' +
+                '<a href="javascript:void(0)" class="del-pro">删除项目</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>');
+        } else {
+            alert('请输入项目名称！');
+        }
+        $('.project-name').remove();
+    });
+
+    var self=null;
+    //创建问卷
+    $('.createQu').live('click', function () {
+        $('.pop-up-window-box').show();
+        self = this;
+    });
+
+    $('.que-cancel').live("click",function () {
+        $('.pop-up-window-box').hide();
+        $('.modify-title').val("");
+        $('.modify-des').val("");
+    });
+    $('.que-confirm').live("click", function () {
+        var time2 = new Date().Format("yyyy-MM-dd HH:mm:ss");
+
+        if($('.modify-title').val() === '' || $('.modify-des').val() === ''){
+            alert("请将信息填写完整");
+        }else {
+            console.log($('.modify-title').val());
+            console.log($('.modify-des').val());
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.open("POST","http://localhost:8080/questionnaire/os?questionnaire_type="+ $(self).parent().parent().parent().parent().attr('id').substring(2) +
+                "&proj_name="+ $(self).parent().parent().prev().html() +"&questionnaire_name="+ $('.modify-title').val() + "&questionnaire_content="+
+                $('.modify-des').val()+"&creation_date="+time2+"&last_update_date="+time2,true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send();
+
+            console.log("http://localhost:8080/questionnaire/os?questionnaire_type="+ $(self).parent().parent().parent().parent().attr('id').substring(2) +
+                "&proj_name="+ $(self).parent().parent().prev().html() +"&questionnaire_name="+ $('.modify-title').val() + "&questionnaire_content="+
+                $('.modify-des').val()+"&creation_date="+time2+"&last_update_date="+time2);
+
+            $(self).parent().parent().parent().parent().append('<div class="row test-content" id="'+ (cums[cums.length - 1].id+1) +'">' +
+                '<div class="row test-info">' +
+                '<div class="col-xs-12 col-sm-4 col-md-3 ">'+ $('.modify-title').val() +'</div>' +
+                '<div class="col-xs-12 col-sm-8 col-md-9 ">' +
+                '<div>' +
+                '<span class="iconfont">&#xe63f;</span>' +
+                // '<span>答卷'+ cums.length +'</span>' +
+                '<span>' + time2 + '</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="row test-op">' +
+                '<div class="col-xs-12 col-sm-6 col-md-8">' +
+                // '<a href="#" class="iconfont">&#xe6f5; 设计问卷</a>' +
+                '<a href="javascript:void(0)" class="iconfont send_que">&#xe734; 发送问卷</a>' +
+                '<a href="javascript:void(0)" class="iconfont">&#xe638; 分析&下载' +
+                '<span class="triangle-op"></span>' +
+                '</a>' +
+                '</div>' +
+                '<div class="col-xs-12 col-sm-6 col-md-4 ">' +
+                '<div>' +
+                // '<a href="#" class="iconfont">&#xe69c; 开启</a>' +
+                '<a class="iconfont">&#xe600;预览</a>' +
+                // '<a href="javascript:void(0)" class="iconfont">&#xe63e; 查看</a>' +
+                '<a class="iconfont edit-que">&#xe61c;编辑</a>' +
+                // '<a href="javascript:void(0)" class="iconfont">&#xe609; 复制</a>' +
+                '<a class="iconfont del-que">&#xe614;删除</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>'
+            );
+        }
+        $('.pop-up-window-box').hide();
+        $('.modify-title').val("");
+        $('.modify-des').val("");
+    });
+
+    //删除项目
+    $('.del-pro').live('click', function () {
+
+        console.log($(this).parent().parent().parent().parent().attr('id'));
+
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("POST","http://localhost:8080/project/del?projectid="+$(this).parent().parent().parent().parent().attr('id').substring(2),true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.send();
+        console.log("删除项目的id为:"+$(this).parent().parent().parent().parent().attr('id'));
+        $(this).parent().parent().parent().parent().remove();
+
+    });
+
+    //删除问卷
+    $('.del-que').live('click', function () {
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("POST","http://localhost:8080/questionnaire/del?queid="+$(this).parent().parent().parent().parent().attr('id'),true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.send();
+        $(this).parent().parent().parent().parent().remove();
+    });
+
+    //编辑问卷
+    $('.edit-que').live('click', function () {
+        console.log("该问卷id为：" +$(this).parent().parent().parent().parent().attr('id'));
+        window.location.href = "http://localhost:8080/questionnaire/edit?queid=" + $(this).parent().parent().parent().parent().attr('id');
+    });
+
+    $('.search-box').find("span").click(function () {
+        var divs = $(".test-top").children("div");
+        var len = $(".test-top").children("div").length;
+        for (let i = 0;i < len; i++){
+            if ($(this).parent().children("input").val() == divs[i].innerHTML){
+                console.log("找到了");
+                console.log(divs[i].offsetTop);
+                console.log(divs[i].offsetHeight);
+                console.log($(window).height());
+                $('html, body').animate({
+                    scrollTop: divs[i].offsetTop - $(window).height()*0.4
+                }, 500);
+            }
+        }
+    });
+
+    $('.send_que').live("click", function () {
+        window.location.href = "http://localhost:8080/sendmail/controll?queid="+$(this).parent().parent().parent().attr("id");
+        console.log("http://localhost:8080/sendmail/controll?queid="+$(this).parent().parent().parent().parent().attr("id"));
+    });
+
+    $('.preview-que').live("click", function () {
+        window.location.href = "http://localhost:8080/questionnaire/view?queid="+$(this).parent().parent().parent().attr("id");
+        console.log("http://localhost:8080/questionnaire/view?queid="+$(this).parent().parent().parent().attr("id"));
+    });
+
+    $('.returnTop').click(function(){
+        $('html,body').animate({
+            scrollTop: '0px'
+            }, 800);
+    });
+
+
+    $('.returnDown').click(function(){
+        $('html,body').animate({
+            scrollTop:$('.bottom').offset().top
+        }, 800);
+    });
+
+    /*]]>*/
+</script>
+
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winter.mapper.ProjectMapper">
+    <resultMap id="BaseResultMap" type="com.winter.model.Questionnaire_info_type">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+        <result column="questionnaire_type" property="questionnaire_type" jdbcType="VARCHAR"/>
+        <result column="created_by" property="created_by" jdbcType="CHAR"/>
+        <result column="creation_date" property="creation_date" jdbcType="TIMESTAMP"/>
+        <result column="last_updated_by" property="last_updated_by" jdbcType="CHAR"/>
+        <result column="last_update_date" property="last_update_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, num, questionnaire_type,created_by,creation_date,last_updated_by,last_update_date
+  </sql>
+    <insert id="insert" parameterType="com.winter.model.Questionnaire_info_type">
+    insert into Questionnaire_info_type (id,num,questionnaire_type,created_by,creation_date,last_updated_by,last_update_date)
+    values (#{id,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{questionnaire_type,jdbcType=VARCHAR},#{created_by,jdbcType=CHAR},#{creation_date,jdbcType=TIMESTAMP},#{last_updated_by,jdbcType=CHAR},#{last_update_date,jdbcType=TIMESTAMP})
+    </insert>
+    <select id="findAllProject" resultType="Questionnaire_info_type">
+		select * from questionnaire_info_type
+	</select>
+    <delete id="delete" parameterType="Integer">
+        delete from questionnaire_info_type where num=#{num}
+    </delete>
+</mapper>

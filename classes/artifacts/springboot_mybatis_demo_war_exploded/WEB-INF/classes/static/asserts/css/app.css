@@ -1,0 +1,468 @@
+@font-face {
+    font-family: 'iconfont';  /* project id 1920358 */
+    src: url('//at.alicdn.com/t/font_1920358_yj9s425c98q.eot');
+    src: url('//at.alicdn.com/t/font_1920358_yj9s425c98q.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1920358_yj9s425c98q.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1920358_yj9s425c98q.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1920358_yj9s425c98q.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1920358_yj9s425c98q.svg#iconfont') format('svg');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 18px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    margin-right: 10px;
+}
+
+html,
+body,
+.container-fluid,
+.row {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.container-fluid {
+    position: relative;
+}
+
+
+.returnTop {
+    position: fixed;
+    font-size: 25px;
+    color: #0078c8;
+    right: 50px;
+    bottom: 150px;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    z-index: 999;
+}
+
+.returnDown {
+    position: fixed;
+    font-size: 25px;
+    color: #0078c8;
+    right: 50px;
+    bottom: 120px;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    z-index: 999;
+}
+
+.container-fluid .pop-up-window-box {
+    display: none;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+    height: 450px;
+    border-radius: 30px;
+    width: 500px;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.container-fluid .pop-up-window-box .pop-up-window {
+    width: 400px;
+    height: 340px;
+    margin: 0 auto;
+    margin-top: 50%;
+    transform: translateY(-60%);
+    background: #ffffff;
+}
+
+.container-fluid .pop-up-window-box .pop-up-window h2 {
+    height: 40px;
+    line-height: 40px;
+    background: #f8f8f8;
+    border-bottom: 1px solid #efefef;
+    padding-left: 10px;
+}
+
+.container-fluid .pop-up-window-box .pop-up-window span {
+    display: inline-block;
+    width: 100%;
+    margin: 20px 0 10px 0;
+    font-size: 16px;
+    padding-left: 20px;
+}
+
+.container-fluid .pop-up-window-box .pop-up-window input,
+.container-fluid .pop-up-window-box .pop-up-window textarea {
+    border: 1px solid #cdcdcd;
+    width: 90%;
+    font-size: 16px;
+    padding: 5px;
+    margin-left: 20px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #cdcdcd;
+}
+
+.container-fluid .pop-up-window-box .pop-up-window input {
+    height: 40px;
+}
+
+.container-fluid .pop-up-window-box .pop-up-window div {
+    width: 150px;
+    margin: 20px 20px 0 0;
+    float: right;
+}
+
+.container-fluid .pop-up-window-box .pop-up-window div a {
+    display: inline-block;
+    width: 60px;
+    height: 35px;
+    border: 1px solid #cdcdcd;
+    line-height: 35px;
+    text-align: center;
+    margin-left: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.container-fluid .pop-up-window-box .pop-up-window div a:nth-child(1) {
+    color: #575a5f;
+}
+
+.container-fluid .pop-up-window-box .pop-up-window div a:nth-child(2) {
+    color: #ffffff;
+    background: #0095da;
+}
+
+
+.nav-box {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background-color: #0078c8;
+}
+
+.nav-box>div {
+    height: 100%;
+    position: relative;
+}
+
+.nav-box .items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40px;
+    width: 320px;
+    margin: 0 auto;
+}
+
+.nav-box .items-box .items a {
+    display: inline-block;
+    height: 40px;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 38px;
+    vertical-align: middle;
+}
+
+.nav-box .items-box .items a:hover {
+    color: #eeeeee;
+}
+
+.nav-box .items-box .items a span {
+    margin-right: 6px;
+    font-size: 20px;
+}
+
+.nav-box .items-box .items a span.triangle {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: 4px solid #ffffff;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.content-box {
+    width: 80%;
+    margin: 30px auto 0 auto;padding-bottom: 50px;
+}
+
+.content-box .new-search {
+    position: relative;
+    height: 90px;
+    width: 95%;
+    margin: 0 auto;
+    border-bottom: 1px solid #f5f7fa;
+}
+
+.content-box .new-search .project-name {
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    height: 40px;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    margin-left: 4px;
+    border: 1px solid #d2d2d2;
+}
+
+.content-box .new-search .project-name input {
+    outline: none;
+    border: 0;
+    color: #bdbdbd;
+}
+
+.content-box .new-search .project-name input:nth-child(2) {
+    background-color: #ffffff;
+}
+
+.content-box .new-search>div {
+    height: 40px;
+}
+
+.content-box .new-search .new-pro span:nth-child(1) {
+    display: inline-block;
+    height: 40px;
+    background-color: #fa911e;
+    border-radius: 18px;
+    padding: 0 8px;
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 38px;
+    text-align: center;
+    margin-right: 8px;
+    width: 130px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-left: -10px;
+}
+
+.content-box .new-search .new-pro .search-box {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #d2d2d2;
+    color: #e6e6e6;
+    border-radius: 20px;
+    padding: 0 12px;
+}
+
+.content-box .new-search .new-pro .search-box input {
+    display: inline-block;
+    height: 40px;
+    width: 240px;
+    border: 0;
+    outline: 0;
+    color: #bdbdbd;
+    line-height: 40px;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #999999;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #999999;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #999999;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #999999;
+}
+
+.content-box .new-search .new-pro .search-box .iconfont {
+    display: inline-block;
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
+}
+
+.content-box .new-search .history-pro span {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    border: 1px solid #d2d2d2;
+    height: 40px;
+    line-height: 36px;
+    color: #999999;
+    padding: 0 8px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.content-box .test-project-box {
+    width: 70%;
+    margin: 30px auto 0 auto;
+    padding-bottom: 10px;
+    border: 1px solid #dedede;
+    border-radius: 10px;
+}
+
+.content-box .test-project-box .test-top {
+    height: 40px;
+    border-bottom: 1px solid #dfdfdf;
+    color: #696969;
+    background-color: #f5f5f5;
+    line-height: 40px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.content-box .test-project-box .test-top>div {
+    position: relative;
+}
+
+.content-box .test-project-box .test-top>div>div {
+    position: absolute;
+    right: 0;
+    width: 200px;
+    color: #52bef0;
+}
+
+.content-box .test-project-box .test-top>div>div a {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.content-box .test-project-box .test-content {
+    border: 1px solid #e1ebf5;
+    border-radius: 10px;
+    width: 97%;
+    margin: 20px auto 0 auto;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.content-box .test-project-box .test-content .test-info,
+.content-box .test-project-box .test-content .test-op {
+    height: 50px;
+}
+
+.content-box .test-project-box .test-content .test-info {
+    position: relative;
+    background-color: #e6f0fa;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    line-height: 50px;
+}
+
+.content-box .test-project-box .test-content .test-info>div {
+    height: 100%;
+    /* border: 1px solid firebrick; */
+    
+}
+
+.content-box .test-project-box .test-content .test-info>div>div span:nth-child(1) {
+    font-size: 15px;
+    color: #b3b3b3;
+}
+
+/*运行中*/
+/* .content-box .test-project-box .test-content .test-info>div>div span:nth-child(1) {
+    font-size: 15px;
+    color: #f1876d;
+} */
+
+.content-box .test-project-box .test-content .test-info>div>div span {
+    color: #808080;
+    font-weight: bold;
+    margin-left: 10px;
+    
+}
+
+.content-box .test-project-box .test-content .test-info div:nth-child(1) {
+    font-weight: bold;
+}
+
+.content-box .test-project-box .test-content .test-info div:nth-child(2) {
+    position: relative;
+}
+
+.content-box .test-project-box .test-content .test-info>div>div {
+    position: absolute;
+    display: inline-block;
+    /* border: 1px solid rgb(34, 101, 178); */
+    height: 100%;
+    right: 10px;
+}
+
+
+.content-box .test-project-box .test-content .test-op {
+    line-height: 50px;
+}
+
+.content-box .test-project-box .test-content .test-op div a,
+.content-box .test-project-box .test-content .test-op div span {
+    position: relative;
+    font-size: 15px;
+    color: #808080;
+}
+
+.content-box .test-project-box .test-content .test-op div .triangle-op {
+    position: absolute;
+    border: 5px solid #808080;
+    height: 0;
+    width: 0;
+    top: 50%;
+    transform: translateY(-30%);
+    margin-left: 5px;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}
+
+
+.content-box .test-project-box .test-content .test-op>div {
+    height: 100%;
+}
+
+.content-box .test-project-box .test-content .test-op>div:nth-child(1) a {
+    margin-left: 8px;    
+}
+
+/*.content-box .test-project-box .test-content .test-op>div:nth-child(2) {*/
+/*    height: 100%;*/
+/*}*/
+
+.content-box .test-project-box .test-content .test-op div:nth-child(2)>div {
+    position: absolute;
+    right: 10px;
+}
+
+.content-box .test-project-box .test-content .test-op div:nth-child(2)>div a {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.content-box .test-project-box .test-content .test-op div:nth-child(2) div a:nth-child(1) {
+    color: #52bef0;
+}
+
+a {
+    cursor: pointer;
+}
+
+

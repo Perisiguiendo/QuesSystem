@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预览界面</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="../static/asserts/css/reset.css">-->
+    <script src="../static/asserts/script/jquery.min.js"></script>
+    <style>
+        html,
+        body { width: 100%;height: 100%;font-family: "Microsoft YaHei UI"; }
+        .container-fluid { height: 100%;width: 100%;background-image: linear-gradient(#64ace6, #fcfcfc);overflow: auto; }
+        .top { height: 10%;width: 100%; }
+        .row>div:nth-child(2) { background-color: #ffffff; }
+        .que::-webkit-scrollbar { width: 6px; }
+        .que::-webkit-scrollbar-thumb { border-radius: 15px;background: rgba(0, 0, 0, 0.2); }
+        .que>div { padding: 0;margin: 0; }
+        .head-top { display: flex;justify-content: space-between;align-items: flex-start;padding-bottom: 10px;border-bottom: 1px dashed #b9b9b9;margin-bottom: 10px; }
+        .head-top div { margin: 0 auto; }
+        .head-top div h1 { font-size: 22px;font-weight: bold;color: #2ea0fa;text-align: center;margin: 15px 0; }
+        .head-top div h4 { font-size: 16px;line-height: 22px; }
+        .que-con { margin-bottom: 10px; }
+        button { margin-top: 10px;margin-left: 50%;transform: translateX(-50%);width: 200px;height: 40px;border-width: 0px;border-radius: 3px;background: #1E90FF;cursor: pointer;outline: none;font-family: Microsoft YaHei;color: white;font-size: 17px;margin-bottom: 20px; }
+        button:hover { background: #5599FF; }
+        li{ list-style: none; }
+        label { font-weight: normal; }
+        i{ font-style: normal;font-size: 16px;color: #404040; }
+        .wjdc_list { border-bottom: 1px dashed #b9b9b9;margin-bottom: 10px;padding-bottom: 10px; }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="top"></div>
+        <div class="row que">
+            <div class="col-xs-1 col-sm-2 col-md-3"></div>
+            <div class="col-xs-10 col-sm-8 col-md-6">
+                <div class="head-top">
+                    <div>
+                        <h1 class="title"></h1>
+                        <h4 class="describe"></h4>
+                    </div>
+                    <img src="http://qr.liantu.com/api.php?bg=f3f3f3&fg=000000&el=l&w=80&m=5&text=http://192.168.0.100:5500/preview.html" />
+                </div>
+                <form class="que-con" action="" method="post">
+
+                </form>
+            </div>
+            <div class="col-xs-1 col-sm-2 col-md-3"></div>
+        </div>
+    </div>
+
+</body>
+
+<script th:inline="javascript">
+    var que = [[${que}]];
+    var id=[[${id}]];
+    for (let i = 0;i<que.length;i++){
+        if(que[i].id == id){
+            $('.title').html(que[i].questionnaire_name);
+            $('.describe').html(que[i].questionnaire_content);
+        }
+    }
+    var problems = [[${problems}]];
+    var answer = [[${answer}]];
+    var new_pro = [];
+    for (let i=0;i<problems.length;i++){
+        if (id == problems[i].questionnaire_id){
+            new_pro.push(problems[i]);
+        }
+    }
+    function sortId(a,b){
+        return a.pos-b.pos;
+    }
+    new_pro.sort(sortId);
+    for(let i = 0;i<new_pro.length;i++){
+        console.log(new_pro[i]);
+    }
+    for (let i =0;i<new_pro.length;i++){
+        // var movie_box = '<div class="movie_box" style="border-bottom: 1px dashed #b9b9b9;margin-bottom: 10px"></div>';
+        var wjdc_list = '<ul class="wjdc_list"></ul>'; //问答 单选 多选
+        var danxuan = "";
+        if (new_pro[i].kind_id == 0) {
+            console.log(new_pro[i].kind_id);
+            danxuan = '【单选】';
+        }else if(new_pro[i].kind_id == 1){
+            danxuan = '【多选】';
+        }
+
+        wjdc_list = $(wjdc_list).append(' <li style="margin-bottom: 5px;"><i style="color: red">*</i><i>' + new_pro[i].pos + '</i>. <i>'+new_pro[i].problem_name+'</i><span style="color: #1E90FF">' + danxuan + '</span></li>');
+        // movie_box = $(movie_box).append(wjdc_list);
+        $(".que-con").append(wjdc_list);
+
+        var inputType;
+        for (let j=0;j<answer.length;j++) {
+            if (new_pro[i].id == answer[j].pro_id) {
+                //题目选项
+                if(new_pro[i].kind_id == 0){
+                    inputType = 'radio';
+                }else if (new_pro[i].kind_id == 1) {
+                    inputType = 'checkbox';
+                }
+                var li = '<li style="margin-left: 20px;"><input name="'+ answer[j].pro_id +'" type="' + inputType + '"> ' + answer[j].answer_name + '</li>';
+                wjdc_list.append(li);
+            }
+        }
+    }
+    $(".que-con").append('<button type="submit">提交</button>');
+
+
+
+</script>
+
+</html>

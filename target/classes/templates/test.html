@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传Excel</title>
+    <script src="../static/asserts/script/jquery.min.js"></script>
+    <script src="../static/asserts/layui/layui.js"></script>
+</head>
+<body>
+<input type="file" id="file1" name="file1">
+<input type="button" id="UpFile" value="保存">
+
+<script type="text/javascript">
+    layui.use('form', function () {
+        var form = layui.form,
+            $ = layui.$;
+        //js接收文件
+        // debugger;
+        var formData = new FormData();
+        formData.append("files", $("#file1")[0].files[0]);
+
+        //提交后台
+        $("#UpFile").on('click', function () {
+            // debugger;
+
+            var formData = new FormData();
+            formData.append("files", $("#file1")[0].files[0]);
+            $.ajax({
+                type: 'POST',
+                url: "/Up_File_Excel/Up_File_Excel",
+                data: formData,
+                contentType: false,
+                processData: false,//这个很有必要，不然不行
+                dataType: "json",
+                mimeType: "multipart/form-data",
+                success: function (data) {
+                    // debugger;
+                    if (200 == data.code) {
+                        /*Feng.success("保存成功!");
+                    window.parent.Consult.table.refresh();
+                    ConInfoDlg.close();*/
+                    } else {
+                        /*Feng.error("保存失败!" + data.message);*/
+                    }
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>

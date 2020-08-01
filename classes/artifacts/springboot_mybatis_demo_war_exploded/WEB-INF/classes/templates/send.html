@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发送问卷</title>
+    <link rel="stylesheet" href="../static/asserts/css/reset.css">
+    <link rel="stylesheet" href="../static/asserts/css/send.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="../static/asserts/script/jquery.min.js"></script>
+
+</head>
+
+<body>
+<!-- 侧边导航栏 -->
+<div class="slider">
+    <a href="javascript:void(0);" id="btn-home-page">
+        <span class="iconfont">&#xe6f3;</span>
+        <span class="word">首页</span>
+        <span class="triangle-part"></span>
+    </a>
+    <a href="#" id="btn-design-page">
+        <span class="iconfont">&#xe637;</span>
+        <span class="word">设计问卷</span>
+        <span class="triangle-part"></span>
+    </a>
+    <a href="#" id="btn-send-page" class="active">
+        <span class="iconfont">&#xe911;</span>
+        <span class="word">发送问卷</span>
+        <span class="triangle-part"></span>
+    </a>
+    <a href="#" id="analyse-download-page">
+        <span class="iconfont">&#xe63a;</span>
+        <span class="word">分析&下载</span>
+        <span class="triangle-part"></span>
+    </a>
+</div>
+
+<div class="container-fluid send_que_interface">
+    <div class="row nav">
+        <div class="col-sm-1 col-md-3"></div>
+        <div class="col-sm-10 col-md-6">
+            <span class="preview-que">预览问卷</span>
+            <div>
+                <a href="javascript:void(0);" class="top-btn active" id="staff">
+                    <span class="iconfont">&#xe696;</span>
+                    <span>调查人员管理</span>
+                </a>
+                <a href="javascript:void(0);" class="top-btn" id="transmit">
+                    <span class="iconfont">&#xe606;</span>
+                    <span>问卷发放</span>
+                </a>
+                <a href="javascript:void(0);" class="top-btn" id="transmitted">
+                    <span class="iconfont">&#xe696;</span>
+                    <span>已发问卷</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-1 col-md-3"></div>
+    </div>
+    <div class="row content">
+        <div class="col-sm-1 col-md-2"></div>
+        <div class="col-sm-10 col-md-8 ">
+            <div class="box" id="box_staff">
+                    <span>批量发送问卷
+                        <span class="send-title"></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                <a href="javascript:;" class="file">批量添加答题人信息
+                    <input type="file" onchange="importf(this);"/>
+                </a>
+                <div class="info">
+                    <table>
+                        <tr class="table-head">
+                            <td>序号</td>
+                            <td>答题人编号</td>
+                            <td>姓名</td>
+                            <td>学校</td>
+                            <td>手机号码</td>
+                            <td>邮箱</td>
+                            <td>操作</td>
+                        </tr>
+                        <tr class="table-footer">
+                            <td colspan="7" style="background: #f9f9f9;color: #838383;">没有找到记录</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="box" id="box_transmit">
+                    <span>批量发送问卷
+                        <span class="send-title"></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                <div class="send_mode">发送方式
+                    <input type="radio" name="短信" class="note" value="1">短信
+                    <input type="radio" name="邮件" class="email" value="2">邮件
+                    <input type="radio" name="链接" class="link" value="3">链接
+                </div>
+                <div class="send_mode noteCon">发布模式
+                    <input type="radio" name="立即发布">立即发布
+                    <input type="radio" name="定时发布">定时发布
+                </div>
+                <div class="hint">
+                    <div><i>*</i>答卷结束提示</div>
+                    <textarea name="" id="" cols="60" rows="3" style="display: block;"></textarea>
+                </div>
+                <div class="hint noteCon">
+                    <div><i>*</i>发布消息内容</div>
+                    <i>请在需要加入姓名、学校名称的位置添加"<span>【姓名】、【学校名】</span>"，系统将会根据问卷自动替换!</i>
+                    <textarea cols="60" rows="5" style="display: block;"
+                              placeholder="【姓名】您好，我省展开高校社会满意度调查，请对您的母校【学校名】做出评价。"></textarea>
+                </div>
+                <div class="hint emailCon">
+                    <div><i>*</i>邮件内容</div>
+                    <input type="text" placeholder="请填写邮件的标题" class="email-title">
+                    <span style="font-size: 14px;">正文：</span><i>注意不要修改"<span>【】</span>"的内容,系统将会根据问卷自动替换!</i>
+                    <textarea cols="60" rows="5" style="display: block;" class="email-text"></textarea>
+                </div>
+                <div class="qr linkCon">
+                    <img
+                            src="http://qr.liantu.com/api.php?bg=f3f3f3&fg=000000&gc=000000&el=l&w=150&m=10&text=www.liantu.com"/>
+                    <div class="copy">
+                        <input type="text" placeholder="http://dwz.mn/x9z2">
+                        <span href="javascript:void(0)">复制</span>
+                    </div>
+                </div>
+                <div class="bt">
+                    <button>保存内容</button>
+                    <button class="immediate_send">立即发送</button>
+                </div>
+            </div>
+            <div class="box" id="box_transmitted">
+                    <span>已发送问卷
+                        <span class="send-title"></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                <div class="info">
+                    <table>
+                        <tr>
+                            <td>序号</td>
+                            <td>答题人编号</td>
+                            <td>姓名</td>
+                            <td>学校</td>
+                            <td>手机号码</td>
+                            <td>邮箱</td>
+                            <td>发送方式</td>
+                            <td>发送时间</td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" style="background: #f9f9f9;color: #838383;">没有找到记录</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1 col-md-2"></div>
+    </div>
+</div>
+<div class="container-fluid analyse-interface">
+    <div class="row nav">
+        <div class="col-sm-1 col-md-3">
+            <select name="template" id="select-template">
+                <option value="">辽宁省在校生问卷模板</option>
+                <option value="">辽宁省毕业生问卷模板</option>
+                <option value="">辽宁省老师问卷模板</option>
+                <option value="">辽宁省教授问卷模板</option>
+
+            </select>
+        </div>
+        <div class="col-sm-10 col-md-6">
+            <span class="preview-que">预览问卷</span>
+            <div>
+                <a href="javascript:void(0);" class="top-btn active">
+                    <span class="iconfont">&#xe62b;</span>
+                    <span>查看答题情况</span>
+                </a>
+                <a href="javascript:void(0);" class="top-btn">
+                    <span class="iconfont">&#xe60b;</span>
+                    <span>答题统计</span>
+                </a>
+                <a href="javascript:void(0);" class="top-btn">
+                    <span class="iconfont">&#xe62c;</span>
+                    <span>结果分析</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-1 col-md-3"></div>
+    </div>
+    <div class="row content">
+        <div class="col-sm-1 col-md-2"></div>
+        <div class="col-sm-10 col-md-8 ">
+            <div class="box">
+
+            </div>
+        </div>
+        <div class="col-sm-1 col-md-2"></div>
+    </div>
+</div>
+</body>
+<script src="../static/asserts/script/xlsx.core.min.js"></script>
+<script th:inline="javascript">
+
+    var id = [[${id}]];
+
+    $('.send_que_interface').show();
+    $('.analyse-interface').hide();
+
+    $('.slider').children('a').click(function () {
+        $(this).attr("class", "active");
+        $(this).siblings().attr("class", "");
+        var id = $(this).attr("id");
+        switch (id) {
+            case "btn-send-page":
+                $('.send_que_interface').show();
+                $('.analyse-interface').hide();
+                break;
+            case "analyse-download-page":
+                $('.send_que_interface').hide();
+                $('.analyse-interface').show();
+                break;
+        }
+    });
+
+    $('.emailCon').hide();
+    $('.linkCon').hide();
+    $('#box_transmit').hide();
+    $('#box_transmitted').hide();
+    $('.bt').show();
+    $('.send_mode').children('input').click(function () {
+        $(this).prop("checked", true);
+        $(this).siblings().prop("checked", false);
+        var value = $(this).val();
+        console.log(value);
+        switch (value) {
+            case "1":
+                $('.noteCon').show();
+                $('.emailCon').hide();
+                $('.linkCon').hide();
+                $('.bt').show();
+                break;
+            case "2":
+                $('.noteCon').hide();
+                $('.emailCon').show();
+                $('.linkCon').hide();
+                $('.bt').show();
+                break;
+            case "3":
+                $('.noteCon').hide();
+                $('.emailCon').hide();
+                $('.linkCon').show();
+                $('.bt').hide();
+                break;
+        }
+    });
+
+    $('.top-btn').click(function () {
+        $(this).attr("class", "top-btn active");
+        $(this).siblings().attr("class", "top-btn");
+        var id = $(this).attr("id");
+        switch (id) {
+            case "staff":
+                $('#box_staff').show();
+                $('#box_transmit').hide();
+                $('#box_transmitted').hide();
+                break;
+            case "transmit":
+                $('#box_staff').hide();
+                $('#box_transmit').show();
+                $('#box_transmitted').hide();
+                break;
+            case "transmitted":
+                $('#box_staff').hide();
+                $('#box_transmit').hide();
+                $('#box_transmitted').show();
+                break;
+        }
+    });
+
+    var wb; //读取完成的数据
+    var rABS = false; //是否将文件读取为二进制字符串
+    var data = [];
+    var dataEmail = "";
+    function importf(obj) { //导入
+        if (!obj.files) {
+            $('.table-footer').show();
+            return;
+        }
+        var f = obj.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var data = e.target.result;
+            if (rABS) {
+                wb = XLSX.read(btoa(fixdata(data)), { //手动转化
+                    type: 'base64'
+                });
+            } else {
+                wb = XLSX.read(data, {
+                    type: 'binary'
+                });
+            }
+            //wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
+            //wb.Sheets[Sheet名]获取第一个Sheet的数据
+            // document.getElementById("demo").innerHTML
+            //JSON数据
+            data = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+
+            for (let i=0;i<data.length;i++){
+                var n = data[i].email.indexOf("@");
+                dataEmail += data[i].email.substring(0,n+1);
+                // dataEmail += "&";
+                if (i == data.length - 1){
+                    dataEmail += data[i].email.substring(0,n+1);
+                }
+            }
+
+            if (data.length > 0) {
+                $('.table-footer').show();
+                console.log(data);
+                for (let i = data.length - 1; i >= 0; i--) {
+                    $('.table-head').after(
+                        '<tr>' +
+                        '<td>' + data[i].number + '</td>' +
+                        '<td>' + data[i].student_number + '</td>' +
+                        '<td>' + data[i].name + '</td>' +
+                        '<td>' + data[i].college + '</td>' +
+                        '<td>' + data[i].phone + '</td>' +
+                        '<td>' + data[i].email + '</td>' +
+                        '<td> <a>删除</a> </td>' +
+                        '</tr>'
+                    );
+                }
+                $('.table-footer').hide();
+            }
+
+        };
+        if (rABS) {
+            reader.readAsArrayBuffer(f);
+        } else {
+            reader.readAsBinaryString(f);
+        }
+    }
+
+    function fixdata(data) { //文件流转BinaryString
+        var o = "",
+            l = 0,
+            w = 10240;
+        for (; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l *
+            w + w)));
+        o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+        return o;
+    }
+
+
+    $('table').find('a').live("click", function () {
+        console.log($(this).parent().parent().children("td:first").html());
+
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("POST", "http://localhost:8080/sendmail/del?id=" + $(this).parent().parent().children("td:first").html(), true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send();
+
+        $('table tr').get($(this).parent().parent().index()).remove();
+    });
+
+    $('.immediate_send').click(function () {
+        window.location.href = "http://localhost:8080/sendmail/test?persons="+ dataEmail +"&title=" + $('.email-title').val() + "&text=" + $('.email-text').val();
+        var msg = [[${msg}]];
+        alert(msg);
+    });
+
+    $('#btn-home-page').click(function () {
+        window.location.href = "http://localhost:8080/toApp";
+    });
+
+    $('.preview-que').click(function () {
+        console.log("id为" + id);
+        window.location.href = "http://localhost:8080/questionnaire/view?queid=" + id;
+    });
+
+</script>
+
+</html>
